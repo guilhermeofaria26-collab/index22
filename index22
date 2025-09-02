@@ -1,37 +1,165 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Dash</title>
-        <link rel="icon" type="image/x-icon" href="/_favicon.ico?v=3.2.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    </head>
-    <body>
-        <!--[if IE]><script>
-        alert("Dash v2.7+ does not support Internet Explorer. Please use a newer browser.");
-        </script><![endif]-->
-        
-<div id="react-entry-point">
-    <div class="_dash-loading">
-        Loading...
-    </div>
-</div>
+import pandas as pd
+import plotly.graph_objects as go
+import dash
+from dash import dcc, html
+from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
+import numpy as np
 
-        <footer>
-            <script id="_dash-config" type="application/json">{"url_base_pathname":null,"requests_pathname_prefix":"\u002f","ui":false,"props_check":false,"disable_version_check":false,"show_undo_redo":false,"suppress_callback_exceptions":false,"update_title":"Updating...","children_props":{"dash_core_components":{"Checklist":["options[].label"],"Clipboard":[],"ConfirmDialog":[],"ConfirmDialogProvider":[],"DatePickerRange":[],"DatePickerSingle":[],"Download":[],"Dropdown":["options[].label"],"Geolocation":[],"Graph":[],"Input":[],"Interval":[],"Link":[],"Loading":["custom_spinner"],"Location":[],"Markdown":[],"RadioItems":["options[].label"],"RangeSlider":[],"Slider":[],"Store":[],"Tab":[],"Tabs":[],"Textarea":[],"Tooltip":[],"Upload":[]},"dash_html_components":{"A":[],"Abbr":[],"Acronym":[],"Address":[],"Area":[],"Article":[],"Aside":[],"Audio":[],"B":[],"Base":[],"Basefont":[],"Bdi":[],"Bdo":[],"Big":[],"Blink":[],"Blockquote":[],"Br":[],"Button":[],"Canvas":[],"Caption":[],"Center":[],"Cite":[],"Code":[],"Col":[],"Colgroup":[],"Content":[],"Data":[],"Datalist":[],"Dd":[],"Del":[],"Details":[],"Dfn":[],"Dialog":[],"Div":[],"Dl":[],"Dt":[],"Em":[],"Embed":[],"Fieldset":[],"Figcaption":[],"Figure":[],"Font":[],"Footer":[],"Form":[],"Frame":[],"Frameset":[],"H1":[],"H2":[],"H3":[],"H4":[],"H5":[],"H6":[],"Header":[],"Hgroup":[],"Hr":[],"I":[],"Iframe":[],"Img":[],"Ins":[],"Kbd":[],"Keygen":[],"Label":[],"Legend":[],"Li":[],"Link":[],"Main":[],"MapEl":[],"Mark":[],"Marquee":[],"Meta":[],"Meter":[],"Nav":[],"Nobr":[],"Noscript":[],"ObjectEl":[],"Ol":[],"Optgroup":[],"Option":[],"Output":[],"P":[],"Param":[],"Picture":[],"Plaintext":[],"Pre":[],"Progress":[],"Q":[],"Rb":[],"Rp":[],"Rt":[],"Rtc":[],"Ruby":[],"S":[],"Samp":[],"Script":[],"Section":[],"Select":[],"Shadow":[],"Slot":[],"Small":[],"Source":[],"Spacer":[],"Span":[],"Strike":[],"Strong":[],"Sub":[],"Summary":[],"Sup":[],"Table":[],"Tbody":[],"Td":[],"Template":[],"Textarea":[],"Tfoot":[],"Th":[],"Thead":[],"Time":[],"Title":[],"Tr":[],"Track":[],"U":[],"Ul":[],"Var":[],"Video":[],"Wbr":[],"Xmp":[]},"dash_table":{"DataTable":[]},"dash_bootstrap_components":{"Accordion":[],"AccordionItem":["title"],"Alert":[],"Badge":[],"Breadcrumb":[],"Button":[],"ButtonGroup":[],"Card":[],"CardBody":[],"CardFooter":[],"CardGroup":[],"CardHeader":[],"CardImg":[],"CardImgOverlay":[],"CardLink":[],"Carousel":[],"Collapse":[],"DropdownMenu":["label"],"DropdownMenuItem":[],"Fade":[],"Form":[],"FormFeedback":[],"FormFloating":[],"FormText":[],"Label":[],"Checkbox":["label"],"Checklist":["options[].label"],"Input":[],"InputGroup":[],"InputGroupText":[],"RadioButton":["label"],"RadioItems":["options[].label"],"Select":[],"Switch":["label"],"Textarea":[],"Col":[],"Container":[],"Row":[],"Stack":[],"ListGroup":[],"ListGroupItem":[],"Modal":[],"ModalBody":[],"ModalFooter":[],"ModalHeader":[],"ModalTitle":[],"Nav":[],"NavItem":[],"NavLink":[],"Navbar":[],"NavbarBrand":[],"NavbarSimple":["brand"],"NavbarToggler":[],"Offcanvas":["title"],"Pagination":[],"Placeholder":[],"Popover":[],"PopoverBody":[],"PopoverHeader":[],"Progress":[],"Spinner":[],"Table":[],"Tab":[],"Tabs":[],"Toast":["header"],"Tooltip":[]}},"serve_locally":true,"dash_version":"3.2.0","python_version":"3.13.7 (tags\u002fv3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]","dash_version_url":"https:\u002f\u002fdash-version.plotly.com:8080\u002fcurrent_version","ddk_version":null,"plotly_version":"6.3.0"}</script>
-            <script src="/_dash-component-suites/dash/deps/polyfill@7.v3_2_0m1756827384.12.1.min.js"></script>
-<script src="/_dash-component-suites/dash/deps/react@18.v3_2_0m1756827384.3.1.min.js"></script>
-<script src="/_dash-component-suites/dash/deps/react-dom@18.v3_2_0m1756827384.3.1.min.js"></script>
-<script src="/_dash-component-suites/dash/deps/prop-types@15.v3_2_0m1756827384.8.1.min.js"></script>
-<script src="/_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v2_0_4m1756827455.min.js"></script>
-<script src="/_dash-component-suites/dash/dash-renderer/build/dash_renderer.v3_2_0m1756827383.min.js"></script>
-<script src="/_dash-component-suites/dash/dcc/dash_core_components.v3_2_0m1756827384.js"></script>
-<script src="/_dash-component-suites/dash/dcc/dash_core_components-shared.v3_2_0m1756827384.js"></script>
-<script src="/_dash-component-suites/dash/html/dash_html_components.v3_0_4m1756827384.min.js"></script>
-<script src="/_dash-component-suites/dash/dash_table/bundle.v6_0_4m1756827384.js"></script>
-            <script id="_dash-renderer" type="application/javascript">var renderer = new DashRenderer();</script>
-        </footer>
-    </body>
-</html>
+# --- 1. SEUS DADOS ---
+dados = {
+    'Grupo': [
+        'ADIMAX', 'AGROZOOTEC IND. COM.', 'ALLFLEX(SIST IDENT ANIMAL)', 'ANIMALL INDUSTRIA',
+        'ATACADISTAS E DISTRIBUIDORES', 'BASSO PANCOTTE', 'BIMEDA BRASIL S.A',
+        'BIOCLIN PET', 'BIOFARM', 'BIOGENESIS PECUARIA', 'BIOGENESIS PET',
+        'BIOVET PECUARIA', 'BIOVET PET', 'BOEHRINGER PECUÁRIA', 'BOEHRINGER PET',
+        'BOOTS HORSE', 'BOSCH', 'BOTUPHARMA IND. E COM. VET.', 'BOVITEC PRODUTOS PEC. LTDA',
+        'BRANCO MOTORES', 'BRAVET', 'CADIOLI', 'CEVA PECUARIA', 'CHEMITEC',
+        'COCA-COLA', 'COMERCIAL ARPE LTDA EIRELLI', 'DATAMARS', 'DECHRA',
+        'DISPEC', 'DIVERSOS', 'DUMA ARTEFATOS DE FERRO E AÇO', 'ELANCO',
+        'EMBRIOLIFE - VITROCELL', 'EUROFARMA', 'FORTH JARDIM', 'GENCO',
+        'GENEPRO BRASIL AGRONEGOCIOS', 'GLOBAL CONTROL', 'GUACHUKA', 'GUARANY',
+        'HOPPNER', 'HOSPITALARES E DESCARTAVEIS', 'ICOFEPAR IND. E COM. METAIS',
+        'IMEVE SAUDE ANIMAL', 'IMV DO BRASIL TECNOLOGIAS', 'IND. COM. CALÇADOS(FLEX FORT)',
+        'IND. COM. VASSOURAS MENDONÇA', 'INDUBRAS IND. VET. LTDA', 'J.A SAUDE ANIMAL',
+        'J.P INDUSTRIA FARMACEUTICA', 'JACTO', 'JG INDUSTRIA METALURGICA',
+        'JPB IND. QUIMICA LTDA (KERSIA)', 'LAB CALBOS LTDA', 'LAB LEMA BIOLOGIC',
+        'LAB PERINI', 'LABORATORIO PRADO S.A', 'LABOVET PRODUTOS VETERINARIOS',
+        'LAHUMAN IND E COM DE PLASTICOS', 'LANDRIN', 'LAOMAAN',
+        'LAUNER PRODUTOS QUIMICOS', 'LAVIZOO', 'MARIA C. PRATA E BRITO',
+        'MICROSULES', 'MONITOR APARELHOS ELETRICOS', 'MSD PECUÁRIA', 'MSD PET',
+        'MULTILONAS LTDA', 'NC IND. COM. IMP. EXPORTAÇAO', 'NOXON', 'NUCTRAMIX',
+        'NUTRIÇAO ANIMAL - REI NUTRI', 'NUTRIPHOS', 'ORGANNACT', 'ORGANNACT EQUINO',
+        'OURO FINO PECUARIA', 'OURO FINO PET', 'PACIFIL', 'PECUARISTA DOESTE',
+        'PINUS IND. COM. LTDA', 'PRODUTOS FRACIONADOS', 'PROVAR PRODUTOS VETERINARIOS',
+        'RODOCORDAS', 'RTB RAÇÕES', 'RURAL FORCE HOMEO', 'RURAL FORCE NUTRI',
+        'SALINOR', 'SCALA PECUÁRIA', 'SCHERER', 'SELARIAS GERAIS',
+        'SEMENTES ADRIANA', 'SEMENTES GERAIS', 'SETE LEGUAS CALÇADOS LTDA',
+        'SLOTEN', 'START QUIMICA (LIMA E PERGHER)', 'SUPRIVET', 'SYNTEC PECUARIA',
+        'SYNTEC PET', 'TNB BRASIL', 'UCBVET SAUDE ANIMAL', 'UNIAO QUIMICA (AGENER)',
+        'UNIVITTA SAUDE ANIMAL LTDA', 'UZUCLEAN', 'VANSIL', 'VETNIL', 'VETOQUINOL',
+        'VIRBAC PECUARIA', 'WAGO', 'WALMUR', 'ZEBU', 'ZOETIS - PET', 'ZOETIS PECUARIA'
+    ],
+    'ago/25': [
+        22558.32, 784.83, 6415.74, 6081.28, 102103.18, 11854.65, 8429.57,
+        19549.44, 1263.82, 52918.48, 657.42, 9070.39, np.nan, 9576.43,
+        5994.82, 160.44, 79.30, 697.95, 848.68, 2719.03, 17401.01,
+        712.46, 7226.26, 6007.35, 201.50, 2032.53, 7359.08, 14259.07,
+        9631.97, 4998.73, 531.54, 40660.01, 35.36, 3155.67, 423.68,
+        3726.19, 91.40, 400.83, 4392.38, 88.64, 6087.90, 18526.84,
+        876.97, np.nan, 503.72, 2101.59, 564.20, 1660.39, 34763.12,
+        11015.88, 390.04, 5555.54, 1375.14, 8421.95, 6863.95, 423.48,
+        722.15, 2722.08, 2213.13, 1666.28, np.nan, 1338.25, 5221.07,
+        957.55, 3509.45, 118.95, 62081.26, 19.34, np.nan, 4699.34,
+        5900.55, 114542.28, 140258.57, 1400.34, 382.80, np.nan, 154738.10,
+        64.36, 114032.00, 2589.78, 5120.26, 4809.47, 193.94, 1574.81,
+        np.nan, 4274.00, 20985.24, 12460.20, 50547.45, 192.94, 6468.33,
+        np.nan, 322.50, 51.33, 90762.14, 2683.99, np.nan, 4224.91,
+        83493.19, 428.70, 13359.42, 84900.93, 371.40, 267.61, 15185.31,
+        9573.37, 4107.70, 7391.88, 846.87, 6604.46, 2314.58, np.nan,
+        137308.30
+    ],
+    'ago/24': [
+        21477.28, 1229.88, 6575.46, 2457.88, 83672.55, 11683.41, 6163.30,
+        14524.82, 1307.28, 25543.96, 319.09, 8007.15, 4874.49, 4927.24,
+        np.nan, 250.48, 3293.15, 4608.06, 666.05, 3293.15, 10555.39,
+        1247.70, 9000.95, 6142.79, 204.00, 1778.93, np.nan, 6641.53,
+        2727.50, 29.33, np.nan, 24683.98, 220.44, 931.50, 91.75,
+        1839.02, 2253.52, 460.20, 4205.29, 72.35, 1236.20, 11473.61,
+        507.47, 3356.40, 602.70, 1520.02, 885.54, 400.32, 22423.62,
+        8026.88, 292.84, 7785.06, np.nan, 3991.27, 2476.21, 688.55,
+        3420.94, 415.20, 4487.92, 5812.33, 597.53, 2925.59, 2780.85,
+        1213.39, 1426.92, 2073.01, 49310.19, np.nan, 989.45, 1078.32,
+        4009.90, 73101.04, np.nan, 5514.25, 26.00, 186.22, 50161.15,
+        176.73, 94357.76, 2898.98, 5396.64, 5122.15, 122.15, 3764.84,
+        7860.93, 8178.50, 109793.58, 13422.18, 40061.21, np.nan, 5090.52,
+        14686.88, np.nan, 1296.88, 136399.32, 3642.49, 150.00, 3482.79,
+        34856.98, 1354.57, 9915.18, 34332.45, 2285.39, np.nan, 6675.25,
+        9302.33, 1408.54, 5311.55, 1724.36, 6372.24, 3471.03, 2743.97,
+        62324.42
+    ]
+}
+
+# Criando um DataFrame do Pandas
+df = pd.DataFrame(dados)
+
+# Calcula a variação percentual
+df['Variacao_%'] = ((df['ago/25'] - df['ago/24']) / df['ago/24']) * 100
+
+# --- 2. INICIANDO O APP DASH E CRIANDO O LAYOUT ---
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+app.layout = dbc.Container([
+    html.H1("Comparativo de Vendas (Ago/24 x Ago/25)", className="my-4"),
+    
+    dbc.Row([
+        dbc.Col(
+            dcc.Dropdown(
+                id='dropdown-grupos',
+                options=[{'label': i, 'value': i} for i in df['Grupo'].unique()],
+                placeholder="Pesquisar ou selecionar um grupo...",
+                multi=True
+            ),
+            width=12
+        )
+    ]),
+    
+    dbc.Row([
+        dbc.Col(
+            dcc.Graph(id='grafico-vendas'),
+            width=12
+        )
+    ])
+])
+
+# --- 3. CRIANDO A LÓGICA DE CALLBACK PARA ATUALIZAR O GRÁFICO ---
+@app.callback(
+    Output('grafico-vendas', 'figure'),
+    [Input('dropdown-grupos', 'value')]
+)
+def update_graph(grupos_selecionados):
+    if grupos_selecionados:
+        df_filtrado = df[df['Grupo'].isin(grupos_selecionados)]
+    else:
+        df_filtrado = df
+
+    # Calcula a variação percentual para os dados filtrados
+    df_filtrado['Variacao_%'] = ((df_filtrado['ago/25'] - df_filtrado['ago/24']) / df_filtrado['ago/24']) * 100
+    
+    # Criando o gráfico com Plotly
+    fig = go.Figure()
+
+    # Adicionando as barras para o ano de 2024
+    fig.add_trace(go.Bar(
+        x=df_filtrado['Grupo'],
+        y=df_filtrado['ago/24'],
+        name='Ago/24',
+        marker_color='rgb(128, 208, 255)', # Cor azul clara
+        hovertext=[f"Valor: R${v:.2f}<br>Variação: {df_filtrado['Variacao_%'].iloc[i]:.1f}%" for i, v in enumerate(df_filtrado['ago/24'])],
+        hoverinfo='text+name'
+    ))
+
+    # Adicionando as barras para o ano de 2025
+    fig.add_trace(go.Bar(
+        x=df_filtrado['Grupo'],
+        y=df_filtrado['ago/25'],
+        name='Ago/25',
+        marker_color='rgb(255, 153, 153)', # Cor salmão
+        hovertext=[f"Valor: R${v:.2f}<br>Variação: {df_filtrado['Variacao_%'].iloc[i]:.1f}%" for i, v in enumerate(df_filtrado['ago/25'])],
+        hoverinfo='text+name'
+    ))
+
+    fig.update_layout(
+        title_text='Comparativo de Vendas (Ago/24 x Ago/25)',
+        title_x=0.5, # Centraliza o título
+        xaxis_title='Grupos',
+        yaxis_title='Valor (R$)',
+        barmode='group',
+        legend_title='Período',
+        xaxis_tickangle=-45, # Inclina os rótulos do eixo X para melhor visualização
+    )
+    
+    return fig
+
+if __name__ == '__main__':
+    app.run()
